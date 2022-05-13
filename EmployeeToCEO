@@ -1,0 +1,45 @@
+public class EmployeeToCEO {
+
+  class Employee{
+    String name;
+    String metadata;
+    List<Employee> reporters; // list of employee who reportes to this employee
+  }
+
+  List<Employee> resPath;
+  public List<Employee> findPath(List<Employee> employees , Employee e){
+    Map<Employee, Boolean> employeeBooleanMap = new HashMap<>();
+    // Find CEO
+    for(Employee employee : employees) {
+      employeeBooleanMap.put(employee, true);
+      for(Employee reporter : employee.reporters) {
+        employeeBooleanMap.put(reporter, false);
+      }
+    }
+    Employee CEO = null;
+    for(Employee employee : employeeBooleanMap.keySet()){
+      if(employeeBooleanMap.get(employee)) {
+        CEO = employee;
+      }
+    }
+    
+    // Find Path
+    dfs(CEO, e, new ArrayList<>());
+    return resPath;
+  }
+  
+  private void dfs(Employee employee, Employee target, List<Employee> employeeList) {
+    if(employee.equals(target)) {
+      employeeList.add(employee);
+      resPath = employeeList;
+      return;
+    }
+    
+    employeeList.add(employee);
+    for(Employee reporter : employee.reporters) {
+      dfs(reporter, target, employeeList);
+    }
+    employeeList.remove(employeeList.size() - 1);
+  }
+
+}
