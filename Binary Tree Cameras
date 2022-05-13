@@ -1,0 +1,28 @@
+class Solution {
+    int total = 0;
+    public int minCameraCover(TreeNode root) {
+       
+        if(dfs(root) == 0){
+            total++;
+        }
+        return total;
+    }
+    
+    private int dfs(TreeNode root){
+        if(root == null) {
+            return 2;
+        }
+        
+        int leftState = dfs(root.left);
+        int rightState = dfs(root.right);
+        
+        if(leftState == 0 || rightState == 0) {
+            total++;
+            return 1;
+        }
+        
+        
+        return leftState == 1 || rightState == 1 ? 2 : 0;
+        
+    }
+}
