@@ -1,0 +1,15 @@
+class Solution {
+    public void moveZeroes(int[] nums) {
+        for(int r = 0, lastNonZero = 0; r < nums.length; r++) {
+            if(nums[r] != 0){
+                swap(nums, lastNonZero++, r);
+            }
+        }
+    }
+    
+    private void swap(int[] nums, int l, int r){
+        int tmp = nums[l];
+        nums[l] = nums[r];
+        nums[r] = tmp;
+    }
+}
